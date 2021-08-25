@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SchoolManagement.Model.Entity.WorkSchedule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Create Schedule</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.scheduleStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.scheduleEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThemeColor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.archived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.classRoomId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.staffMemberId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.scheduleStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.scheduleEndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThemeColor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.archived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.classRoomId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.staffMemberId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.scheduleId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.scheduleId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.scheduleId })
+        </td>
+    </tr>
+}
+
+</table>

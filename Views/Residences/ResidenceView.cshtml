@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SchoolManagement.Models.Entity.Residence>
+
+@{
+    ViewBag.Title = "ResidenceView";
+}
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 190px;
+        margin: auto;
+        text-align: center;
+        height: 220px !important;
+        margin-bottom: 20px !important;
+        border: groove !important;
+        margin-top: 20px !important;
+    }
+
+
+    .top-head {
+        align-content: center;
+        text-align: center !important;
+    }
+</style>
+
+<h2 class="top-head">Residences View</h2>
+
+
+
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4">
+        <div class="card">
+            <img class="card-img-top" src="holder.js/100x180/" alt="">
+            <div class="card-body">
+                <h4 class="card-title">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </h4>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        @Html.DisplayFor(modelItem => item.ResidenceType.ResidenceTypeName)  Residence
+                    </h4>
+                    <p class="card-text">
+                        Anual Fee: @Html.DisplayFor(modelItem => item.AnualFee)
+                        <br />s
+                        Registration Fee: @Html.DisplayFor(modelItem => item.RegistrationFee)
+                    </p>
+                </div>
+                <p><a class="btn btn-default" onclick="location.href='@Url.Action("Create","ResidenceApplications", new { id=item.ID})'">Go To Residences </a></p>
+
+            </div>
+        </div>
+    </div>
+}
+
+

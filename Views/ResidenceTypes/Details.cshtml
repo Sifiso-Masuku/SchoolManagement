@@ -1,0 +1,26 @@
+﻿@model SchoolManagement.Models.ResidenceType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Residence Type Details</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ResidenceTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResidenceTypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ResidenceTypeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

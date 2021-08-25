@@ -1,0 +1,91 @@
+﻿@model SchoolManagement.Models.Entity.Meeting
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<hr />
+<div class="row">
+
+    <div class="col-lg-4">
+        <h4>Meeting</h4>
+
+        <dl class="">
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Time)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Time)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Venue)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Venue)
+            </dd>
+
+        </dl>
+
+    </div>
+    <div class="col-lg-4">
+        <h4>Attendees</h4>
+
+        <ol id="attendees"></ol>
+
+    </div>
+    <div class="col-lg-4">
+        <h4>Add Teachers</h4>
+        <input type="hidden" value="@ViewBag.MeetingID" id="meetingid" />
+
+        <select class="form-control" id="teacherId">
+
+        </select>
+        <br />
+        <button id="btnAdd" class="btn btn-success">Add</button>
+
+    </div>
+
+</div>
+
+
+<script>
+    $(function () {
+
+        $.get('/meetings/getallteachers', null, function (data) {
+            data.forEach(item => {
+                $("#teacherId").append(`<option value =${item.Id}>${item.Name}</option>`)
+            })
+        })
+
+        $.get('/meetings/getTeachersInMeeting/' + $("#meetingid").val(), null, function (data) {
+            
+            data.forEach(item => {
+                $("#attendees").append(`<li >${item.Name}</li>`)
+            })
+        })
+
+        $("#btnAdd").click(() => {
+            let teacherid = $("#teacherId").val();
+            let meetingid = $("#meetingid").val();
+            $.get(`/meetings/addteacher?teacherid=${teacherid}&meetingid=${meetingid}`, null, function (data) {
+                
+            })
+
+            location.reload()
+            
+        })
+    })
+</script>

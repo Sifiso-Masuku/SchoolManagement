@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "CreateReportPage";
+}
+
+<div class="container">
+
+    <h2 class="text-center">Almost done!</h2>
+    <h3 class="text-center">Please fill in the form below</h3>
+
+    <div class="row">
+
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-4">
+
+            <input type="text" value="@ViewBag.StudentName" class="form-control" />
+            <br />
+            <input id="subject" type="text" value="@ViewBag.Subject" class="form-control" />
+            <br />
+            <input type="text" value="@ViewBag.Grade" class="form-control" />
+            <input id="studentid" type="hidden" value="@ViewBag.StudentID" class="form-control" />
+            <br />
+            <select class="form-control" id="term">
+                <option>Select Term</option>
+            </select>
+            <br />
+            <input id="mark" placeholder="Mark" type="number"  class="form-control" />
+            <br />
+            <button id="submit" class="btn btn-success">Save</button>
+
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $.get('/students/getterms', null, function (data) {
+            data.forEach((item) => {
+                $('#term').append('<option>'+item.Name+'</option>')
+            })
+        })
+
+        $('#submit').click(() => {
+            let studentid = $('#studentid').val();
+            let mark = $('#mark').val();
+            let term = $('#term').val();
+            let subject = $('#subject').val();
+
+            $.get(`/students/buildreport?studentid=${studentid}&mark=${mark}&term=${term}&subject=${subject}`, null, function () {
+                alert('Report created')
+
+                
+            })
+        })
+    })
+</script>
+
+
+

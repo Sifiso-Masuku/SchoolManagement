@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SchoolManagement.Models.Entity.Meeting>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All meetings</h2>
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Venue)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Venue)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", new { id=item.ID })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="@Url.Action("Details", new { id=item.ID })" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add teachers</a>
+
+
+        </td>
+    </tr>
+}
+
+</table>

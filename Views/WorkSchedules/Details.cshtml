@@ -1,0 +1,66 @@
+﻿@model SchoolManagement.Model.Entity.WorkSchedule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WorkSchedule</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.scheduleStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.scheduleStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.scheduleEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.scheduleEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThemeColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThemeColor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.archived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.archived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.classRoomId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.classRoomId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.staffMemberId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.staffMemberId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.scheduleId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

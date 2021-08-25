@@ -1,0 +1,196 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SchoolManagement.Model.Entity.StudentApplication>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h1>
+        Applications List
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            @*@Html.ActionLink("Create New", "Create")*@
+        </small>
+    </h1>
+</div>
+
+@using (Html.BeginForm("Index", "StudentApplications", FormMethod.Get))
+{
+    //the following are search options
+
+    <b> Search Option: </b>@Html.RadioButton("option", "Surname") <text>Surname</text> @Html.RadioButton("option", "Status") <text> Status </text>
+    @Html.RadioButton("option", "Name")<text>Name</text> @Html.TextBox("search")
+    <input type="submit" name="submit" value="Search" />
+}
+
+
+
+
+@if (Model.Count() == 0)
+{
+    <tr>
+        <td colspan="3"> Records not found </td>
+    </tr>
+}
+else
+{
+    <div class="row">
+        <div class="col-xs-1">
+            <table id="simple-table" class="table  table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().ClassName.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Surname)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().DOB)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().NID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Gender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().HomeLanguage)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Race)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().PresentAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().ParmanentAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Religion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().GuardianName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().applicationDocuments)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassName.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Surname)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DOB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeLanguage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Race)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PresentAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParmanentAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Religion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuardianName)
+                    </td>
+                    
+
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default" href="@Url.Action("OpenPDFIdDoc", "ApplicationDocuments", new { id=item.applicationDocuments.Where(x=>x.StudentApplicationId==item.Id).FirstOrDefault().Id },null)">
+                                <span class="icon_lightbulb_alt"></span>
+                                View Previous School Document
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default" href="@Url.Action("OpenPDFIdDoc1", "ApplicationDocuments", new { id=item.applicationDocuments.Where(x=>x.StudentApplicationId==item.Id).FirstOrDefault().Id },null)">
+                                <span class="icon_lightbulb_alt"></span>
+                                View Certificate
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default" href="@Url.Action("OpenPDFIdDoc2", "ApplicationDocuments", new { id=item.applicationDocuments.Where(x=>x.StudentApplicationId==item.Id).FirstOrDefault().Id },null)">
+                                <span class="icon_lightbulb_alt"></span>
+                                View Certified Id
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default" href="@Url.Action("OpenPDFIdDoc3", "ApplicationDocuments", new { id=item.applicationDocuments.Where(x=>x.StudentApplicationId==item.Id).FirstOrDefault().Id },null)">
+                                <span class="icon_lightbulb_alt"></span>
+                                View Home Address Pdf
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        @if (item.Status != "Accepted")
+                        {
+                    <a href="@Url.Action("ApproveApplication", "StudentApplications", new { id = item.Id })" onclick="return confirm('Are you sure you want to Approve, click Ok to Confirm, Or Cancel');" rel="tooltip" title="Approve" class="btn btn-success btn-simple btn-xs"><i class="fa fa-check" aria-hidden="true"></i></a>}
+                        <a href="@Url.Action("RejectApplication", "StudentApplications", new { id = item.Id })" onclick="return confirm('Are you sure you want to Reject, click Ok to Confirm, Or Cancel');" rel="tooltip" title="Reject" class="btn btn-danger btn-simple btn-xs"><i class="fa fa-ban" aria-hidden="true"></i></a>
+
+                    </td>
+                </tr>
+                    }
+
+                </thead>
+            </table>
+        </div>
+    </div>
+
+}
+@Html.PagedListPager(Model, pageNumber => Url.Action("Index", new
+{
+    pageNumber,
+    option = Request.QueryString["option"],
+    search = Request.QueryString["search"]
+}))
+

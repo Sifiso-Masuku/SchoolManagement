@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SchoolManagement.Models.Entity.Term>
+
+@{
+    ViewBag.Title = "ViewReports";
+}
+    <div class="container">
+
+        <h2 class="text-center">Reports for @ViewBag.StudentName</h2>
+
+        <h5 class="text-center">Select a term below</h5>
+
+
+        @foreach (var item in Model)
+        {
+            <div class="container">
+                <a href="@Url.Action("OpenReport", new { studentid=ViewBag.StudentID, term= item.Name })">
+
+                    <div class="panel panel-default">
+                        <h4 style="font-weight:600; margin-left:20px; color:grey">
+                            <span class="glyphicon glyphicon-time"></span> @Html.DisplayFor(modelItem => item.Name)
+                        </h4>
+                    </div>
+
+                </a>
+                
+            </div>
+            
+
+            
+
+        }
+
+
+    </div>
+
+<p style="text-align:center">
+    <a href="@Url.Action("CreateReport", new { studentid=ViewBag.StudentID })" class="btn btn-success">Create a report for @ViewBag.StudentName</a>
+</p>
+
+
+

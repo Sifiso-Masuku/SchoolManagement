@@ -1,0 +1,67 @@
+﻿@model SchoolManagement.Model.Entity.Guardian
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_HomePageLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Guardian</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeAddress)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

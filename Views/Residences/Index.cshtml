@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SchoolManagement.Models.Entity.Residence>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Residences</h2>
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ResidenceType.ResidenceTypeName)
+        </th><th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rooms)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.AnualFee)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationFee)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResidenceType.ResidenceTypeName)
+        </td> <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rooms)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnualFee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationFee)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", new { id=item.ID })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a href="@Url.Action("Details", new { id=item.ID })" class="btn btn-success"><span class="glyphicon glyphicon-info-sign"></span></a>
+            <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+
+        </td>
+    </tr>
+}
+
+</table>

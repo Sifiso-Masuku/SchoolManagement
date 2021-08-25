@@ -1,0 +1,31 @@
+﻿
+
+@model IEnumerable<SchoolManagement.Model.Entity.Subject>
+
+@{
+    ViewBag.Title = "SubjectView";
+}
+
+<h2>Subject View</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+    <a href="@Url.Action("Index2", "StudentApplications")" rel="tooltip" title="Back" class="btn btn-success btn-simple btn-xs">Back</a>
+
+</table>

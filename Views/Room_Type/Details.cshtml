@@ -1,0 +1,34 @@
+﻿@model SchoolManagement.Models.Room_Type
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Room_Type</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RtName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RtName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.No_Occupants)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.No_Occupants)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Room_TypeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SchoolManagement.Models.Entity.Report>
+
+@{
+    ViewBag.Title = "OpenReport";
+}
+
+    <div class="container">
+
+        <h2 class="text-center">Report for @ViewBag.Student</h2>
+        <h4 class="text-center">@ViewBag.Term</h4>
+        <h6 class="text-center">@ViewBag.Grade</h6>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+
+            <table class="table">
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Subject)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mark)
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mark)
+                        </td>
+                        @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>*@
+                    </tr>
+                }
+
+                <tr>
+                    <td><strong>Average: </strong> @ViewBag.Average</td>
+                    <td><strong>Passed: </strong> @ViewBag.Passed</td>
+                </tr>
+
+            </table>
+
+            <p><a class="btn btn-default" href="http://nqabakazuluvoting.azurewebsites.net/">Send Report</a></p>
+
+        </div>
+        <div class="col-md-2">
+
+        </div>
+
+        
+
+    </div>
+

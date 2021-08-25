@@ -1,0 +1,72 @@
+﻿@model IEnumerable<SchoolManagement.Model.Entity.Attendance>
+
+<h3>Attendencies</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentSurname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberAbsent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberPresent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GuardianEmail)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Attendance_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Attendance_status)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentSurname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberAbsent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberPresent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GuardianEmail)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Attendance_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Attendance_status)
+        </td>*@
+    <td>
+        @Html.ActionLink("Email Attendance", "EmailstudentInfor", "Attendances", new { id = item.Id }, new { @class = "btn btn-primary" })
+
+    </td>
+    </tr>
+}
+
+</table>

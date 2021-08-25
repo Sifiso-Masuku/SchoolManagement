@@ -1,0 +1,1181 @@
+﻿
+@{
+    //Layout = null;
+    ViewBag.Title = "Index";
+}
+
+<h2> </h2>
+<div style="margin-bottom:10%;"></div>
+<div id="scheduler">
+    @*<div class="modal-footer">
+            <button type="button" class="btn btn-default" id="btnAddEmployee" style="float: left">Add Employee</button>
+        </div>*@
+</div>
+
+
+@*Add/Edit Employee Modal*@
+<div id="employeeAddModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Employee</h4>
+            </div>
+            <div class="modal-body">
+                <form class="col-md-12 form-horizontal">
+                    <input type="hidden" id="hdStaffMemberId" value="0" />
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="txtFirstName" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="txtLastName" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="txtPhoneNo" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="text" id="txtEmailAdd" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Date Of Birth</label>
+                        <div class="input-group date" id="dtDOB">
+                            <input type="text" id="txtDob" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        @*<input type="date" id="txtDob" class="form-control" />*@
+                    </div>
+                    <button type="button" id="btnSaveEmployee" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Event click modal*@
+<div id="eventClickModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <input type="hidden" id="hdStaffMemberId" value="0" />
+            <div class="modal-body">
+                <button id="btnDelete" class="btn btn-default btn-sm pull-right">
+                    <span class="=" glyphicon glyphicon-remove"></span> Remove
+                </button>
+                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                    <span class="=" glyphicon glyphicon-remove"></span> Edit
+                </button>
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Resource click modal*@
+<div id="resourceClickModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="resourceTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <button id="btnDeleteRes" class="btn btn-default btn-sm pull-right">
+                    <span class="=" glyphicon glyphicon-remove"></span> Remove
+                </button>
+                <button id="btnEditRes" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                    <span class="=" glyphicon glyphicon-remove"></span> Edit
+                </button>
+                <p id="pDetailsRes"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Edit/Add Event Modal*@
+<div id="eventAddModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Save Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <form class="col-md-12 form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <input type="hidden" id="hdEmployeeID" value="0" />
+                    <div class="form-group">
+                        <label>Employee</label>
+                        <input readonly type="text" id="txtSubject" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Grade Allocated :</label>
+                        <select id="ddClassRoom" class="form-control">
+                            <option value="">Select Grade</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Start</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtStart" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>End</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="divEndDate" style="display:none">
+                        <label>End</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Theme Color</label>
+                        <select id="ddThemeColor" class="form-control">
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="black">Black</option>
+                            <option value="green">Green</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="Teal">Teal</option>
+                        </select>
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script src="~/Scripts/scheduler.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar-scheduler/1.9.4/scheduler.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+    <script>
+        var oldData;
+        var weekendArry = [];
+        var publHoli_Arrytitle = [];
+        var publHoli_Arrystart = [];
+        var schoolHolidayz = [];
+        var workSchedule = [];
+        //var coo=0;
+        function chk100(dates) {
+            //var op = 0;
+            workSchedule.length = 0;
+            dates.forEach(function (date) {
+                console.log(date)
+                i = 0;
+                var h = false;
+                publHoli_Arrystart.forEach(function () {
+                    //alert(start);
+                    if (stripDate(date) == publHoli_Arrystart[i]) {
+                        h = true;
+                    };
+                    i++;
+                });
+                c = 0;
+                weekendArry.forEach(function () {
+                    //alert(start);
+                    if (stripDate(date) == weekendArry[c]) {
+                        h = true;
+                    };
+                    c++;
+                });
+                c = 0;
+                schoolHolidayz.forEach(function () {
+                    //alert(start);
+                    if (stripDate(date) == schoolHolidayz[c]) {
+                        h = true;
+                    };
+                    c++;
+                });
+                if (h == false) {
+                    workSchedule.push(stripDate(date));
+                    //op=op+1
+                }
+            });
+            //return op;
+        }
+        function sch(dates) {
+            dates.forEach(function (date) {
+                //console.log(date)
+                if (date.getDay() == 6 || date.getDay() == 0) {
+                    weekendArry.push(stripDate(date));
+                }
+                i = 0;
+                var h = false;
+                publHoli_Arrystart.forEach(function () {
+                    //alert(start);
+                    if (stripDate(date) == publHoli_Arrystart[i]) {
+                        h = true;
+                    };
+                    i++;
+                });
+                c = 0;
+                weekendArry.forEach(function () {
+                    //alert(start);
+                    if (stripDate(date) == weekendArry[c]) {
+                        h = true;
+                    };
+                    c++;
+                });
+                if (h == false) {
+                    schoolHolidayz.push(stripDate(date));
+                }
+            });
+        }
+        function schoolLoader() {
+            schoolHolidayz.length = 0;
+            getDates.length = 0;
+            var dr = new Date('2019/03/16');
+            //Term 1 Holidays
+            var dates = getDates(new Date(dr.getFullYear(), 2, 16), new Date(2019, 3, 1));
+
+            sch(dates);
+            //Term 2 Holidays
+            dates = getDates(new Date(2019, 05, 15), new Date(2019, 06, 08));
+            sch(dates);
+            //Term 3 Holidays
+            dates = getDates(new Date(2019, 08, 19), new Date(2019, 08, 30));
+            sch(dates);
+            //Term 4 Holidays
+            dates = getDates(new Date(2019, 11, 05), new Date(2019, 11, 31));
+            sch(dates);
+
+        }
+        function holidaysloader() {
+            publHoli_Arrytitle.push("New Year's Day");
+            publHoli_Arrystart.push('2019-01-01');
+
+
+            publHoli_Arrytitle.push("Human Rights Day");
+            publHoli_Arrystart.push('2019-03-27');
+
+            publHoli_Arrytitle.push("Good Friday");
+            publHoli_Arrystart.push('2019-04-19');
+
+            publHoli_Arrytitle.push("Family Day");
+            publHoli_Arrystart.push('2019-04-22');
+
+            publHoli_Arrytitle.push("Freedom Day");
+            publHoli_Arrystart.push('2019-04-27');
+
+            publHoli_Arrytitle.push("Worker's Day");
+            publHoli_Arrystart.push('2019-05-01');
+
+            publHoli_Arrytitle.push("Elections");
+            publHoli_Arrystart.push('2019-05-08');
+
+            publHoli_Arrytitle.push("Youth Day");
+            publHoli_Arrystart.push('2019-06-16');
+
+            publHoli_Arrytitle.push("Public Holiday Day");
+            publHoli_Arrystart.push('2019-06-17');
+
+            publHoli_Arrytitle.push("National Women's Day");
+            publHoli_Arrystart.push('2019-08-09');
+
+            publHoli_Arrytitle.push("Heritage day");
+            publHoli_Arrystart.push('2019-09-24');
+
+            publHoli_Arrytitle.push("Day Of Reconciliation");
+            publHoli_Arrystart.push('2019-12-16');
+
+            publHoli_Arrytitle.push("Christmas Day");
+            publHoli_Arrystart.push('2019-12-25');
+
+            publHoli_Arrytitle.push("Day Of Goodwill");
+            publHoli_Arrystart.push('2019-12-26');
+
+            publHoli_Arrytitle.push("New Year's eve");
+            publHoli_Arrystart.push('2019-12-31');
+
+            publHoli_Arrytitle.push("New Year's Day");
+            publHoli_Arrystart.push('2020-01-01');
+
+            publHoli_Arrytitle.push("Human Rights Day");
+            publHoli_Arrystart.push('2020-03-27');
+
+            publHoli_Arrytitle.push("Good Friday");
+            publHoli_Arrystart.push('2020-04-10');
+
+            publHoli_Arrytitle.push("Family Day");
+            publHoli_Arrystart.push('2020-04-13');
+
+            publHoli_Arrytitle.push("Freedom Day");
+            publHoli_Arrystart.push('2020-04-27');
+
+            publHoli_Arrytitle.push("Worker's Day");
+            publHoli_Arrystart.push('2020-05-01');
+
+            publHoli_Arrytitle.push("Elections");
+            publHoli_Arrystart.push('2020-05-08');
+
+            publHoli_Arrytitle.push("Youth Day");
+            publHoli_Arrystart.push('2020-06-16');
+
+            publHoli_Arrytitle.push("Public Holiday Day");
+            publHoli_Arrystart.push('2020-06-17');
+
+            publHoli_Arrytitle.push("National Women's Day");
+            publHoli_Arrystart.push('2020-08-09');
+
+            publHoli_Arrytitle.push("Heritage day");
+            publHoli_Arrystart.push('2020-09-24');
+
+            publHoli_Arrytitle.push("Day Of Reconciliation");
+            publHoli_Arrystart.push('2020-12-16');
+
+            publHoli_Arrytitle.push("Christmas Day");
+            publHoli_Arrystart.push('2020-12-25');
+
+            publHoli_Arrytitle.push("Day Of Goodwill");
+            publHoli_Arrystart.push('2020-12-26');
+
+            publHoli_Arrytitle.push("New Year's Eve");
+            publHoli_Arrystart.push('2020-12-31');
+
+        }
+        //Schedule functions
+        $(document).ready(function () {
+
+            //Storing variables for event calling and execution
+            var schedule = [];
+            var selectedEvent = null;
+            var selectedResource = null;
+            //Initially execution to render calendar
+            FetchEventAndRenderCalendar();
+
+
+            //Functions for Application
+
+            //Ajax call to get the events from database
+            function FetchEventAndRenderCalendar() {
+                schedule = [];
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Schedule/GetworkSchedules",
+                    success: function (data) {
+                        console.log(data);
+                        publHoli_Arrytitle.length = 0;
+                        publHoli_Arrystart.length = 0;
+                        holidaysloader();
+                        schoolLoader();
+                        var d = new Date();
+                        var y = d.getFullYear();
+                        var dates = getDates(new Date(y, 1, 1), new Date(y + 2, 1, 1));
+                        dates.forEach(function (date) {
+                            if (date.getDay() == 6 || date.getDay() == 0) {
+                                weekendArry.push(stripDate(date));
+                                schedule.push({
+                                    start: stripDate(date),
+                                    end: stripDate(date),
+                                    overlap: false,
+                                    rendering: 'background',
+                                    color: '#808080'
+                                });
+                            }
+                            var i = 0;
+                            schoolHolidayz.forEach(function () {
+                                //alert(start);
+                                if (stripDate(date) == schoolHolidayz[i]) {
+                                    //alert(publHoli_Arrytitle[i])
+                                    schedule.push({
+                                        title: "School Term Holiday",
+                                        start: stripDate(date),
+                                        ///end: stripDate(date),
+                                        //overlap: false,
+                                        //rendering: 'background',
+                                        color: '#808080'
+                                    });
+                                    schedule.push({
+                                        //title: publHoli_Arrytitle[i],
+                                        start: stripDate(date),
+                                        // end: stripDate(date),
+                                        //overlap: false,
+                                        rendering: 'background',
+                                        color: '#5F9EA0'
+                                    });
+                                }
+                                i++;
+                            });
+                            i = 0;
+                            publHoli_Arrystart.forEach(function () {
+                                //alert(start);
+                                if (stripDate(date) == publHoli_Arrystart[i]) {
+                                    //alert(publHoli_Arrytitle[i])
+                                    schedule.push({
+                                        title: publHoli_Arrytitle[i],
+                                        start: stripDate(date),
+                                        ///end: stripDate(date),
+                                        //overlap: false,
+                                        //rendering: 'background',
+                                        color: '#808080'
+                                    });
+                                    schedule.push({
+                                        //title: publHoli_Arrytitle[i],
+                                        start: stripDate(date),
+                                        // end: stripDate(date),
+                                        //overlap: false,
+                                        rendering: 'background',
+                                        color: 'red'
+                                    });
+                                }
+                                i++;
+                            })
+
+                            //console.log(date);
+                        });
+
+
+                        //For loop to get all events in database
+                        $.each(data, function (i, v) {
+
+                            var p = "*" + moment.utc(v.scheduleEndDate).format("MM/DD/YYYY HH:mm A");
+                            var h = "*" + moment.utc(v.scheduleStartDate).format("MM/DD/YYYY HH:mm A");
+                            var d = '', d2 = '';
+                            var dt = '', dt2 = '';
+                            for (u = 1; u < 11; u++) {
+                                d = d + h.charAt(u);
+                                //dt = dt + h.charAt();
+                                d2 = d2 + p.charAt(u);
+                            }
+                            for (u = 11; u < h.length; u++) {
+
+
+                                dt = dt + h.charAt(u);
+                                dt2 = dt2 + p.charAt(u);
+                                //console.log(dt);
+
+                            }
+                            // break;
+                            var dates = getDates2(new Date(d), new Date(d2));
+                            chk100(dates);
+                            for (var l = 0; l < workSchedule.length; l++) {
+                                // console.log(stripDate(workSchedule[l]) + dt);
+                                schedule.push({
+                                    eventID: v.scheduleId,
+                                    title: v.title,
+                                    description: v.Description,
+                                    start: moment.utc(workSchedule[l] + dt).format(),
+                                    //start: moment.utc(v.scheduleStartDate).format(),
+                                    end: moment.utc(stripDate(workSchedule[l]) + dt2).format(),
+                                    ThemeColor: v.ThemeColor,
+                                    // allDay: true,
+                                    resourceId: v.staffMemberId,
+                                    staffMemberId: v.staffMemberId,
+                                    classRoomId: v.classRoomId,
+                                    color: v.ThemeColor
+
+
+                                });
+                            }
+                        })
+
+                        //workSchedule.forEach(data,function (i,v) { })
+
+                        GenerateScheduler(schedule)
+                        $('#scheduler').fullCalendar('refetchEvents')
+                        $('#scheduler').fullCalendar('refetchResources')
+                        $('#scheduler').fullCalendar('render')
+                    },
+                    //Catch error of loading
+                    error: function (error) {
+                        alert('Failed to load all events in schedule!')
+                    },
+                })
+            }
+            //Function to Generate Calendar
+            function GenerateScheduler(schedule) {
+                //Clear any previous rendered Scheduler
+                $('#scheduler').fullCalendar('destroy')
+                //Generate new Scheduler
+                $('#scheduler').fullCalendar(
+                    {
+                        plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+                        schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source', //Open source liscence key
+                        contentHeight: 600,
+                        defaultDate: new Date(), //Display todays date by default
+                        defaultView: 'timelineWeek',
+                        timeFormat: 'h(:mm)a',
+                        header: {
+                            left: 'prev,next today', //Option buttons on left corner of header of Scheduler
+                            center: 'title',
+                            //right: 'month,timelineWeek'
+                            right: 'month,timelineWeek,listMonth'
+                        },
+                        views: { //Adds timeline view option for fullcalender, "resource view"
+                            timelineFiveDays: {
+                                type: 'timelineWeek',
+                                duration: { days: 5 },
+                                minTime: '06:00:00',
+                                maxTime: '18:00:00',
+                                slotDuration: '04:00:00',
+                                slotLabelInterval: '04:00:00',
+                                scrollTime: '06:00'
+                            }
+                        },
+                        eventLimit: true, //if resource slot is full, replaces graphical represenation with plus sign.
+                        eventColor: '#378006', //Default event color
+                        events: schedule,
+                        resourceGroupField: 'groupId',
+                        resources: {
+                            url: "/Schedule/GetResources",
+                            type: 'POST'
+                        },
+                        //On click event for resources
+                        resourceRender: function (resource, labelTds, bodyTds) {
+                            labelTds.on('click', function () {
+                                selectedResource = resource;
+
+                                $('#resourceClickModal #resourceTitle').text(resource.title);
+                                var $description = $('<div/>');
+                                $description.append($('<p>').html('<b>Staff ID: </b>' + resource.staffMemberId));
+                                //$description.append($('<p>').html('<b>Occupation: </b>' + resource.groupId));
+                                $('#resourceClickModal #pDetailsRes').empty().html($description);
+                                $('#resourceClickModal').modal();
+                            });
+                        },
+                        eventClick: function (calEvent, jsEvent, view) {
+                            //Creates HTML code for displaying on event click details
+                            selectedEvent = calEvent;
+                            $('#eventClickModal #eventTitle').text(calEvent.title);
+                            var $description = $('<div/>');
+                            $description.append($('<p>').html('<b>Staff ID : </b>' + calEvent.staffMemberId));
+
+                            $description.append($('<p>').html('<b>Employee Information : </b>' + calEvent.description));
+                            $description.append($('<p>').html('<b>Start: </b>' + moment(calEvent.start).format("MM/DD/YYYY HH:mm A")));
+                            if (calEvent.end != null) {
+                                $description.append($('<p>').html('<b>End: </b>' + moment(calEvent.end).format("MM/DD/YYYY HH:mm A")));
+                            }
+
+                            $('#eventClickModal #pDetails').empty().html($description);
+                            $('#eventClickModal').modal();
+                        },
+                        select: function (start, end, event, view, resource) {
+                            var ResourceTitle = resource.title
+                            var ResourceId = resource.staffMemberId
+                            if (resource.staffMemberId == 0) {
+
+                                ResourceId = resource.resourceId;
+                            }
+                            //event.scheduleId = resource.scheduleId;
+                            selectedEvent = {
+                                eventID: 0,
+                                title: ResourceTitle,
+                                description: '',
+                                start: start,
+                                end: end,
+                                allDay: false,
+                                color: '',
+                                staffMemberId: ResourceId,
+                                resourceId: ResourceId
+                            }
+                            var notallowed = false;
+                            var mess = "";
+                            weekendArry.forEach(function (date) {
+                                if (stripDate(date) == stripDate(selectedEvent.start)) {
+                                    notallowed = true;
+                                    mess = "Weekend !!"
+                                }
+
+                            });
+                            publHoli_Arrystart.forEach(function (date) {
+                                if (stripDate(date) == stripDate(selectedEvent.start)) {
+                                    notallowed = true;
+                                    mess = "Public Holiday !!"
+                                }
+
+                            });
+                            schoolHolidayz.forEach(function (date) {
+                                if (stripDate(date) == stripDate(selectedEvent.start)) {
+                                    notallowed = true;
+                                    mess = "School Holiday!!";
+                                }
+
+                            });
+                            if (notallowed == false) {
+                                openAddEditForm();
+                            } else {
+                                alert("No Schedule is allowed Becuase Date Selected Is a " + mess);
+                            }
+                        },
+                        //Time slot settings
+                        minTime: '06:00:00',
+                        maxTime: '18:00:00',
+                        slotDuration: '03:00:00',
+                        slotLabelInterval: '03:00:00',
+                        scrollTime: '06:00',
+                        //Editable information
+                        editable: false,
+                        droppable: true,
+                        selectable: true,
+                        eventDrop: function (event) {
+                            var data = {
+                                //EventID: event.eventID,
+                                // EmployeeID: event.resourceId,
+                                scheduleId: event.eventID,
+                                staffMemberId: event.resourceId,
+                                classRoomId: event.classRoomId,
+                                scheduleStartDate: moment.utc(event.start).format("MM-DD-YYYY HH:mm a"),
+                                scheduleEndDate: moment.utc(event.end).format("MM-DD-YYYY HH:mm a"),
+                                Description: event.description,
+                                ThemeColor: event.ThemeColor,
+                                //IsFullDay: event.allDay
+                            }
+                            var noDrop = false;
+                            //var i = 0;
+
+                            //alert(start);
+                            if (data.scheduleId == null) {
+                                noDrop = true;
+                            }
+
+                            if (noDrop == false) {
+                                SaveEvent(data);
+                            }
+                        },
+                        eventOverlap: false,
+                        weekNumbers: true,
+                        draggable: true,
+                    })
+
+            }
+            //Function to Open Add/Edit form
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Schedule/GetClassRooms",
+                        success: function (data) {
+                            console.log(data);
+                            var select = document.getElementById('#ddClassRoom');
+                            $('#ddClassRoom').empty();
+                            $('#ddClassRoom').append($('<option></option>').val('').html('Select Grade'));
+                            //For loop to get all events in database
+                            $.each(data, function (i, v) {
+
+                                $('#ddClassRoom').append($('<option></option>').val(v.Id).html(v.Name));
+
+                            })
+                        },
+                        //Catch error of loading
+                        error: function (error) {
+                            alert('Failed to load all classes in Classroom!')
+                        },
+                    })
+                    $.ajax({
+                        type: "GET",
+                        url: "/Schedule/GetThemeColors",
+                        success: function (data) {
+                            var select = document.getElementById('#ddThemeColor');
+                            $('#ddThemeColor').empty();
+                            $('#ddThemeColor').append($('<option></option>').val('Green').html('Green'));
+                            $('#ddThemeColor').append($('<option></option>').val('Teal').html('Teal'));
+                            $('#ddThemeColor').append($('<option></option>').val('Blue').html('Blue'));
+                            //For loop to get all events in database
+                            $.each(data, function (i, v) {
+
+                                $('#ddThemeColor').append($('<option></option>').val(v.colorName).html(v.colorName));
+
+                            })
+                        },
+                        //Catch error of loading
+                        error: function (error) {
+                            alert('Failed to load all Colors!')
+                        },
+                    })
+
+
+
+                    //Gives value to the modal CSS/HTML code.
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#hdEmployeeID').val(selectedEvent.staffMemberId);
+                    $('#txtSubject').val("Sfaff ID :" + selectedEvent.staffMemberId);
+                    // selectedEvent.start.format('MM/DD/YYYY HH:mm A')
+                    $('#txtStart').val(moment.utc(selectedEvent.start).format("MM/DD/YYYY HH:mm A"));
+                    $('#txtEnd').val(selectedEvent.end != null ? moment.utc(selectedEvent.end).format("MM/DD/YYYY HH:mm A") : "");
+                    $('#chkRepeat').prop("checked", selectedEvent.allDay || false);
+                    $('#chkRepeat').change();
+                    //$('#txtDescription').val(selectedEvent.description);
+                    $('#ddThemeColor').val(selectedEvent.color);
+
+                }
+                //Hides modal
+                $('#eventClickModal').modal('hide');
+                $('#eventAddModal').modal();
+            }
+            //Open add costumer modal form
+            function openAddEditEmployeeForm() {
+                if (selectedResource != null) {
+
+                    var namesplit = [];
+                    namesplit = selectedResource.title.split(" "); // Split title into first and last name
+                    var firstname = namesplit[0];
+                    var lastname = namesplit.slice(1, namesplit.length).toString().replace(",", " ") //If persons last name has several or spaces between lastnames they are included
+
+
+                    //$('#hdEmployeeID').val(0);
+                    $('#hdStaffMemberId').val(selectedResource.staffMemberId);
+                    $('#txtFirstName').val(firstname);
+                    $('#txtLastName').val(lastname);
+
+                    $('#txtPhoneNo').val(selectedResource.phonenumber);
+                    $('#txtEmailAdd').val(selectedResource.email);
+                    $('#txtDob').val(moment(selectedResource.Date).format("MM/DD/YYYY"));
+
+
+                    // $('#ddOccupation').val(selectedResource.groupId);
+
+                    selectedResource = null;
+
+
+                }
+
+                $('#resourceClickModal').modal('hide');
+                $('#employeeAddModal').modal('show');
+            }
+            //Function to Save a event to database
+            function CheckSchedule(data) {
+                console.log(data);
+                $.ajax({//Ajax is used for to call controller to get and post data.
+                    type: 'POST',
+                    url: '/Schedule/checkWorkSchedule', //Call Controller
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            console.log("Data Saved");
+                            SaveEvent(oldData);
+                            //console.log("Data Saved");
+                        }
+                        else {
+                            var r = confirm("This class is taken by : " + data.sfaName + " Do you Want to Update Schedule !!");
+                            if (r == true) {
+                                updateWorkSchedule(oldData);
+                                console.log("You pressed OK!");
+
+                            }
+                            else {
+                                FetchEventAndRenderCalendar();
+                                $('#eventAddModal').modal('hide');
+                                console.log("You pressed Cancel!");
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to Save Schedule!');
+                    }
+                })
+            }
+            function SaveEvent(data) {
+                console.log(data);
+                $.ajax({//Ajax is used for to call controller to get and post data.
+                    type: 'POST',
+                    url: '/Schedule/SaveWorkSchedule', //Call Controller
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            FetchEventAndRenderCalendar();
+                            $('#eventAddModal').modal('hide');
+                        }
+                        else {
+                            alert('Failed to Save Schedule!');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to Save Schedule!');
+                    }
+                })
+            }
+
+            function updateWorkSchedule(data) {
+                $.ajax({//Ajax is used for to call controller to get and post data.
+                    type: 'POST',
+                    url: '/Schedule/updateWorkSchedule', //Call Controller
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            FetchEventAndRenderCalendar();
+                            $('#eventAddModal').modal('hide');
+                        }
+                        else {
+                            alert('Failed to Save Schedule Teacher Is Not Available!');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to Save Schedule!');
+                    }
+                })
+            }
+            //Function to save new Employee
+            function SaveStaff(data) {
+                $.ajax({//Ajax is used for to call controller to get and post data.
+                    type: 'POST',
+                    url: '/Schedule/SaveStaff', //Call Controller
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            FetchEventAndRenderCalendar();
+                            $('#employeeAddModal').modal('hide');
+
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to Save Employee!');
+                    }
+                })
+            }
+
+            function resetValEventModal() {
+                $('#hdEventID').val(0),
+                    $('#hdEmployeeID').val(0),
+                    $('#txtStart').val(" "),
+                    $('#chkIsFullDay').is(':checked'),
+                    $('#txtEnd').val(" "),
+                    $('#txtDescription').val(" "),
+                    $('#ddThemeColor').val(" "),
+                    $('#chkIsFullDay').val(" ")
+            }
+            function resetValResourceModal() {
+                $('#hdStaffMemberId').val(0);
+                $('#txtFirstName').val("");
+                $('#txtLastName').val("");
+                $('#txtPhoneNo').val("");
+                $('#txtEmailAdd').val("");
+                $('#txtDob').val(new Date());
+
+
+            }
+
+            //Button handlers for Application
+
+            //Button to Add Employee
+            $('#btnAddEmployee').click(function () {
+                selectedResource = null;
+                resetValResourceModal();
+                openAddEditEmployeeForm();
+            })
+
+            //Button to Save New Employee
+            $('#btnSaveEmployee').click(function () {
+                if ($('#txtFirstName').val().trim() == "") {
+                    alert('First Name required')
+                    return;
+                }
+                if ($('#txtLastName').val().trim() == "") {
+                    alert('Last Name required')
+                    return;
+                }
+                if ($('#txtPhoneNo').val() == null) {
+                    alert('Phone Number required')
+                    return;
+                } if ($('#txtEmailAdd').val() == null) {
+                    alert('Email address required')
+                    return;
+                } if ($('#txtDob').val() == null) {
+                    alert('Date Of Birth required')
+                    return;
+                }
+
+
+                var data = {
+
+
+                    staffMemberId: parseInt($('#hdStaffMemberId').val()),
+                    StaffMemberName: $('#txtFirstName').val(),
+                    StaffMemberSurname: $('#txtLastName').val(),
+                    phonenumber: $('#txtPhoneNo').val(),
+                    email: $('#txtEmailAdd').val(),
+                    dateOfBirth: $('#txtDob').val(),
+
+                }
+
+                SaveStaff(data)
+
+
+
+
+            })
+
+            //DeleteEvent Button
+            $('#btnDelete').click(function () {
+
+                if (selectedEvent != null && confirm('Are you sure?')) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Schedule/DeleteEvent",
+                        data: { 'scheduleId': selectedEvent.eventID }, //Used to send data through HTTP request POST
+                        success: function (data) {
+                            if (data.status) {  //refresh calender if success
+                                FetchEventAndRenderCalendar();
+                                $('#eventClickModal').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed to delete event!')
+                        }
+
+
+                    })
+                }
+                {
+
+                }
+            })
+
+            //Open Edit/Add form
+            $('#btnEdit').click(function () {
+                //Open modal window for edit form for selected event
+                openAddEditForm();
+            })
+
+
+            //Save Event Button
+            $('#btnSave').click(function () {
+
+
+                //Check if text is inputted in submit
+
+                if ($('#txtStart').val().trim() == "") {
+                    alert('Start Date required')
+                    return;
+                }
+                if ($('#txtEnd').val().trim() == "") {
+                    alert('End Date required')
+                    return;
+                }
+                if ($('#ddClassRoom').val() == 0) {
+                    alert('select Classroom')
+                    return;
+                }
+                else {
+                    var startDate = moment($('#txtStart').val(), "MM/DD/YYYY HH:mm A").toDate();
+                    var endDate = moment($('#txtEnd').val(), "MM/DD/YYYY HH:mm A").toDate();
+                    if (startDate > endDate) {
+                        alert('End date cannot be before Start date');
+                        return;
+                    }
+                    if (startDate < new Date()) {
+                        alert('Start date has Already Passed');
+                        return;
+                    }
+
+
+                    var vr = new Date(startDate);
+                    var ve = new Date(endDate);
+
+                    var minTime = new Date(2016, 02, 02, 06);
+                    var maxTime = new Date(2016, 02, 02, 18);
+                    if ((vr.getHours() < minTime.getHours()) || (vr.getHours() > maxTime.getHours()) || (ve.getHours() < minTime.getHours()) || (ve.getHours() > maxTime.getHours())) {
+                        alert('Select appropriate Bussiness Time!!!');
+                        return;
+                    }
+                    startDate1 = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDay(), startDate.getHours() + 2, startDate.getMinutes());
+                    endDate1 = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDay(), endDate.getHours() + 2, endDate.getMinutes());
+                }
+
+                var data = {
+
+                    scheduleId: $('#hdEventID').val(),
+                    staffMemberId: $('#hdEmployeeID').val(),
+                    classRoomId: $('#ddClassRoom').val(),
+                    scheduleStartDate: $('#txtStart').val().trim(),
+                    scheduleEndDate: $('#txtEnd').val().trim(),
+                    schEnd: $('#txtEnd').val().trim(),
+                    ThemeColor: $('#ddThemeColor').val()
+
+                }
+                //Weekend Checker
+                var notallowed = false;
+                var mess = "";
+                weekendArry.forEach(function (date) {
+                    if (((stripDate(date) == stripDate(data.scheduleStartDate)) || (stripDate(date) == stripDate(data.schEnd)))) {
+                        notallowed = true;
+                        mess = "Weekend !!"
+                    }
+
+                });
+                publHoli_Arrystart.forEach(function (date) {
+                    if (((stripDate(date) == stripDate(data.scheduleStartDate)) || (stripDate(date) == stripDate(data.schEnd)))) {
+                        notallowed = true;
+                        mess = "on a Public Holiday !!"
+                    }
+
+                });
+                schoolHolidayz.forEach(function (date) {
+                    if (((stripDate(date) == stripDate(data.scheduleStartDate)) || (stripDate(date) == stripDate(data.schEnd)))) {
+                        notallowed = true;
+                        mess = "School Holiday!!";
+                    }
+
+                });
+                if (notallowed == false) {
+                    //  SaveEvent(data);
+                    oldData = data;
+                    //debugger;
+                    CheckSchedule(data);
+                    //alert(data.scheduleEndDate);
+                    //alert(stripDate(new Date(data.schEnd)));
+                    //alert(stripDate(data.schEnd));
+                    //alert("Saved");
+                } else {
+                    alert("No Schedule is Allowed" + mess);
+                }
+                //SaveEvent(data);
+
+
+
+
+            })
+            $('#dtp1').datetimepicker({
+                format: 'MM/DD/YYYY HH:mm A',
+
+
+            });
+            $('#dtp2').datetimepicker({
+                format: 'MM/DD/YYYY HH:mm A',
+
+            });
+            $('#dtDOB').datetimepicker({
+                format: 'MM/DD/YYYY HH:mm A',
+
+            });
+
+            $('#chkIsFullDay').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#divEndDate').hide()
+                }
+                else {
+                    $('#divEndDate').show()
+                }
+            })
+
+            //Employee edit buttons
+            $('#btnEditRes').click(function () {
+                //Open modal window for edit form for selected event
+                openAddEditEmployeeForm();
+            })
+            $('#btnDeleteRes').click(function () {
+                if (selectedResource != null && confirm('Are you sure?')) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Schedule/DeleteEmployee",
+                        data: { 'employeeID': selectedResource.id }, //Used to send data through HTTP request POST
+                        success: function (data) {
+                            if (data.status) {  //refresh calender if success
+                                FetchEventAndRenderCalendar();
+                                $('#resourceClickModal').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed to delete resource!')
+                        }
+                    })
+                }
+            })
+
+
+
+        })
+        function addZero(v) {
+            if (v < 10) return '0' + v;
+            return v;
+        }
+        function stripDate(ds) {
+            var d = new Date(ds),
+                y = d.getFullYear(),
+                m = addZero(d.getMonth() + 1),
+                d = addZero(d.getDate());
+            return y + '-' + m + '-' + d;
+        }
+        var getDates = function (startDate, endDate) {
+            var dates = [],
+                currentDate = startDate,
+                addDays = function (days) {
+                    var date = new Date(this.valueOf());
+                    date.setDate(date.getDate() + days);
+                    return date;
+                };
+            while (currentDate <= endDate) {
+                dates.push(currentDate);
+                currentDate = addDays.call(currentDate, 1);
+            }
+            return dates;
+        };
+        var getDates2 = function (startDate, endDate) {
+            var dates = [],
+                currentDate = startDate,
+                addDays = function (days) {
+                    var date = new Date(this.valueOf());
+                    date.setDate(date.getDate() + days);
+                    return date;
+                };
+            while (currentDate <= endDate) {
+                dates.push(currentDate);
+                currentDate = addDays.call(currentDate, 1);
+            }
+            // debugger;
+            return dates;
+        };
+        var getDateArray = function (start, end) {
+            var arr = [];
+            end = new Date(end);
+            var dt = new Date(start);
+            while (dt <= end) {
+                arr.push(dt);
+                dt.setDate(dt.getDate() + 1);
+            }
+            //debugger;
+            return arr;
+        };
+    </script>
+}
+

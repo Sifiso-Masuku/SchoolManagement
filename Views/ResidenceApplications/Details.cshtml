@@ -1,0 +1,58 @@
+﻿@model SchoolManagement.Models.ResidenceApplication
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ResidenceApplication</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Residence.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Residence.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UeserEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UeserEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateApplied)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateApplied)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistrationFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ResidenceApplicationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

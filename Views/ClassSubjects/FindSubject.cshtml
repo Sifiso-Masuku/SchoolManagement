@@ -1,0 +1,91 @@
+﻿@model IEnumerable<SchoolManagement.Model.ViewModels.ClassSubjectVM>
+@{
+    ViewBag.Title = "FindSubject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h1>
+        Search Class Subjects
+    </h1>
+</div><!-- /.page-header -->
+<div class="box box-block bg-white m-b-0">
+    @using (Html.BeginForm())
+    {
+        <div class="form-inline">
+            Class Name @Html.DropDownList("StudentClassId", null, "--Select--", new { @class = "form-control selectpicker", @style = "width:150px;" })
+
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    }
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Class Subjects</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        foreach (var data in item.SubjectVM)
+                        {
+                            <tr>
+                                <td>@data.ClassSubjectCode</td>
+                                <td>@data.ClassSubjectName</td>
+
+                            </tr>
+                        }
+
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.5.1/jQuery.print.js"></script>
+    <script src="~/Scripts/print.min.js"></script>
+    <link href="~/Scripts/print.min.css" rel="stylesheet" />
+    <script language="javascript" type="text/javascript">
+
+ $("#StudentClassId").change(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Common/GetSubject",
+                    data: { StudendClass: $('#StudeNameId').val(),
+                    datatype: "json",
+                    traditional: true,
+                        success: function (data) {
+                            alert(data.msg);
+                        },
+                        error: function () {
+                            alert("Error occured!!")
+                        }  
+
+
+                        //$("#ClassNameId").empty();
+                        //$.each(data, function (index, row) {
+
+                        //    $("#ClassNameId").append("<Option value='" + row.Id + "'>" + row.ClassName + "</Option>")
+                    }
+                        });
+
+ 
+          
+           
+         
+ 
+
+</script>
+}

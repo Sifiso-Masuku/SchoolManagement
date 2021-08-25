@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SchoolManagement.Models.CartModels.Order>
+@{
+    ViewBag.Title = "Order History";
+}
+
+<h2 class="title text-center">@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr >
+            <th>
+                ID
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Time
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Order_ID)
+    </td>
+    <td>
+        @item.date_created.ToLongDateString()
+    </td>
+    <td>
+        @item.date_created.ToLongTimeString()
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.status)
+    </td>
+    <td>
+        <a href="@Url.Action("Order_Details","Orders", new { id=item.Order_ID })" rel="tooltip" title="View" class="btn btn-info btn-simple btn-xs"><i class="fa fa-eye"></i></a>
+    </td>
+</tr>}
+
+</table>
+
+

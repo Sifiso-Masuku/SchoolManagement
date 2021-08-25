@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Attendies";
+}
+<p>Search by Subject</p>
+<p>
+    @using (@Html.BeginForm("Index", "Attendances", FormMethod.Post))
+    {
+        <div style="min-width:100% !important">
+    <p style="min-width:100% !important;" placeholder="Subject">
+        @Html.TextBox("search")
+    </p>
+    </div>
+    <div>
+        <input type="submit" value="search" placeholder="Subject" />
+    </div>
+
+
+}
+    </p>

@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-6">
+
+            <h2>Create an order</h2>
+            <hr />
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <p>
+                        <strong>Name: </strong> @ViewBag.Item
+                    </p>
+                    <p>
+                        <strong>Price: </strong> @ViewBag.Price
+                    </p>
+                    <p>
+                        <strong>Email: </strong> @ViewBag.Email
+                    </p>
+                    <input id="stationaryid" type="hidden" value="@ViewBag.ID" />
+                    <input id="email" type="hidden" value="@ViewBag.Email" />
+                </div>
+                <div class="col-lg-6">
+                    <p>Would you love this order to be delivered?</p>
+                    <br />
+
+                    <select class="form-control" id="collectororder">
+                        <option value="Deliver">Yes</option>
+                        <option value="Collect">No</option>
+                    </select>
+                    <br />
+                    <button id="btnOrder" class="btn btn-block btn-success">Order</button>
+
+                </div>
+
+            </div>
+            
+
+        </div>
+        <div class="col-lg-6">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $("#btnOrder").click(() => {
+
+            let email = $('#email').val()
+            let stationaryid = $('#stationaryid').val()
+            let collectororder = $('#collectororder').val()
+
+            $.get(`/stationaries/addOrder?email=${email}&stationaryid=${stationaryid}&collectororder=${collectororder}`, null, function () { })
+            alert('Order has been placed')
+        })
+    })
+</script>
+

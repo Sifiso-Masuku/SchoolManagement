@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SchoolManagement.Models.ResidenceApplication>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <h2>Residence Applications</h2>
+}
+else
+{
+    <h2>My Residence Applications</h2>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Residence.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UeserEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateApplied)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationFee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Residence.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UeserEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateApplied)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistrationFee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Details |", "Details", new { id = item.ResidenceApplicationId }) 
+                @Html.ActionLink("Cancel |", "Delete", new { id = item.ResidenceApplicationId })
+
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Approve |", "Approve", new { id = item.ResidenceApplicationId })
+                    @Html.ActionLink("Decline", "Decline", new { id = item.ResidenceApplicationId })
+
+                }
+
+                @if (!User.IsInRole("Admin") && item.Status == "Approved")
+                {
+                    @Html.ActionLink("Pay Reg Fee", "OnceOff", new { id = item.ResidenceApplicationId })
+                }
+            </td>
+        </tr>
+    }
+
+</table>

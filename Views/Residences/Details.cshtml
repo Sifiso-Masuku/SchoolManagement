@@ -1,0 +1,90 @@
+﻿@model SchoolManagement.Models.Entity.Residence
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<h2>Details</h2>
+
+<hr />
+<div class="row">
+
+    <div class="col-lg-4">
+        <h4>Residence</h4>
+
+        <dl class="">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Rooms)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Rooms)
+            </dd>
+
+        </dl>
+
+    </div>
+    <div class="col-lg-4">
+        <h4>Students</h4>
+
+        <ol id="students"></ol>
+
+    </div>
+    <div class="col-lg-4">
+        <h4>Add Students</h4>
+        <input type="hidden" value="@ViewBag.ID" id="resid" />
+
+        <select class="form-control" id="studentlist">
+        </select>
+        <br />
+        <button id="btnAdd" class="btn btn-success">Add</button>
+
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        
+
+        $.get('/residences/getAllStudentsInRes/' + $("#resid").val(), null, function (data) {
+            data.forEach(item => {
+                
+                $("#students").append(`<li>${item.Name} ${item.Surname}</li>`)
+            })
+        })
+
+        $.get('/residences/getAllStudents', null, function (data) {
+            data.forEach(item => {
+                
+                $("#studentlist").append(`<option value=${item.Id}>${item.Name} ${item.Surname}</option>`)
+            })
+        })
+
+        $("#btnAdd").click(function () {
+            let studentid = $("#studentlist").val();
+            let resid = $("#resid").val();
+
+            $.get(`/residences/addStudentToRes?studentid=${studentid}&resid=${resid}`, null, function () { })
+            alert('Student Added')
+            location.reload()
+        })
+    })
+</script>

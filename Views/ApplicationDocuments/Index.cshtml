@@ -1,0 +1,108 @@
+﻿@model IEnumerable<SchoolManagement.Model.Entity.ApplicationDocuments>
+
+@{ ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+
+<div class="page-header">
+    <h1>
+        Uploaded Documents
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            @*@Html.ActionLink("Create New", "Create")*@
+        </small>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table id="simple-table" class="table  table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentApplication.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApplicationDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PreviousSchool)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PreviousSchoolAddrs)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PreviousSchoolDocument)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Certificate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CertifiedID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HomeAddress)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentApplication.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreviousSchool)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreviousSchoolAddrs)
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-default" href="@Url.Action("OpenPDFIdDoc", "ApplicationDocuments", new { id=item.Id },null)">
+                    <span class="icon_lightbulb_alt"></span>
+                    View Previous School Document
+                </a>
+            </div>
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-default" href="@Url.Action("OpenPDFIdDoc1", "ApplicationDocuments", new { id=item.Id },null)">
+                    <span class="icon_lightbulb_alt"></span>
+                    View Certificate
+                </a>
+            </div>
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-default" href="@Url.Action("OpenPDFIdDoc2", "ApplicationDocuments", new { id=item.Id },null)">
+                    <span class="icon_lightbulb_alt"></span>
+                    View Certified Id
+                </a>
+            </div>
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-default" href="@Url.Action("OpenPDFIdDoc3", "ApplicationDocuments", new { id=item.Id },null)">
+                    <span class="icon_lightbulb_alt"></span>
+                    View Home Address Pdf
+                </a>
+            </div>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+            </thead>
+        </table>
+    </div>
+
+</div>
